@@ -1,6 +1,6 @@
 <?php
 
-class TriviaController {
+class FinanceController {
     private $command;
 
     private $db;

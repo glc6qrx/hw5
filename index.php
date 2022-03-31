@@ -30,5 +30,5 @@ if (!isset($_SESSION["email"])) {
 }
 
 // Instantiate the controller and run
-$trivia = new TriviaController($command);
-$trivia->run();
+$finance = new FinanceController($command);
+$finance->run();
