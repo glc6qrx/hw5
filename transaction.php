@@ -72,7 +72,8 @@
                                     <option value="saab">Deposit</option>
                                 </select>
                             </div>
-                            <div class="text-center">              
+                            <div class="text-center">
+                                <input type="hidden" name="userid" value="<?=$_SESSION["id"]?>">               
                                 <button type="submit" class="btn btn-primary">Add Transaction</button>
                             </div>
                         </form>
