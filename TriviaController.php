@@ -50,8 +50,7 @@ class TriviaController {
                     $_SESSION["email"] = $data[0]["email"];
                     $_SESSION["id"] = $data[0]["id"];
 
-                    $transdata = $this->db->query("select * from hw5_transaction where user_id = ? ORDER BY t_date DESC;", "s", $_SESSION["id"]);
-                    $_SESSION["transactions"] = $transdata;
+                    
 
                     header("Location: ?command=transaction");
                 } else {
@@ -84,6 +83,9 @@ class TriviaController {
             "email" => $_SESSION["email"],
             "id" => $_SESSION["id"]
         ];
+
+        $transdata = $this->db->query("select * from hw5_transaction where user_id = ? ORDER BY t_date DESC;", "s", $_SESSION["id"]);
+        $_SESSION["transactions"] = $transdata;
         include("transaction.php");
     }
 }

@@ -50,6 +50,36 @@
                 </table>
                     
 
+                <div class="row">
+                <div class="col-xs-8 mx-auto">
+                <form action="?command=transaction" method="post">
+                    <div class="h-10 p-5 mb-3">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Name of transaction">
+                        
+                        <br>
+                        <label for="date">Date</label>
+                        <input type="date" class="form-control" id="date" name="date" placeholder="Date of transaction">
+                        <br>
+                        <label for="amount">Amount</label>
+                        <input type="number" class="form-control" id="amount" name="amount" placeholder="Transaction amount" min="0">
+                        <br>
+                        <label for="category">Category</label>
+                        <input type="text" class="form-control" id="category" name="category" placeholder="Transaction Category">
+                        <br>
+                        <label for="type">Type</label>
+                        <select class="form-control" id="type" name="type" placeholder="Transaction type">
+                            <option value="volvo">Withdrawal</option>
+                            <option value="saab">Deposit</option>
+                        <button type="submit" >Add Transaction</button>
+                    </div>
+                    <button type="submit" form="form1" value="Submit" >Add Transaction</button>
+                </form>
+                
+                </div>
+            </div>
+        </div>
+
 
             </div>
 
