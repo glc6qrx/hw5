@@ -95,6 +95,20 @@ class FinanceController {
         $transdata = $this->db->query("select * from hw5_transaction where user_id = ? ORDER BY t_date DESC;", "s", $_SESSION["id"]);
         $_SESSION["transactions"] = $transdata;
         
+        $sum = 0;
+        $sumArr = [];
+
+        foreach($_SESSION["transactions"] as $transaction) {
+            $sum += $transaction["amount"];
+            if (in_array($transaction["Category"], $sumArr)) {
+                $sumArr[$transaction["Category"]] += $transaction["amount"];
+            }
+            else{
+                $sumArr[$transaction["Category"]] = $transaction["amount"];
+            }
+        }
+
+
         include("transaction.php");
     }
 

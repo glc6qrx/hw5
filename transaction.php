@@ -15,7 +15,7 @@
         <div class="container" style="margin-top: 15px;">
             <div class="row col-xs-8">
                 <h1>Transactions</h1>
-                <h3>Hello <?=$user["name"]?>! Id: <?=$user["id"]?></h3>
+                <h3>Hello <?=$user["name"]?>! Id: <?=$user["id"]?> Email: <?=$user["email"]?></h3>
                 
                 <a href="?command=addtransaction" class="mt-3 btn btn-primary col-12">Add New Transaction</a>
                 <a href="?command=logout" class="mt-3 btn btn-danger col-12">Logout</a>
@@ -47,7 +47,32 @@
                     <?php
                     }
                     ?>
+                    <h3>Total Amount: <?=$sum?></h3> 
+                    </tbody>
+                </table>
 
+                <br>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <td><b>Category</b></td>
+                            <td><b>Total</b></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    <?php 
+                        foreach($sumArr as $key => $value) {
+                            ?>
+                            <tr>
+                                <td><?php echo $key?></td>
+                                <td><?php echo $value?></td>
+
+                            </tr>
+                    <?php
+                    }
+                    ?>
                     </tbody>
                 </table>
             </div>
