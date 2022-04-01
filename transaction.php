@@ -17,7 +17,9 @@
                 <h1>Transactions</h1>
                 <h3>Hello <?=$user["name"]?>! Id: <?=$user["id"]?></h3>
                 
-
+                <a href="?command=addtransaction" class="mt-3 btn btn-primary col-12">Add New Transaction</a>
+                <a href="?command=logout" class="mt-3 btn btn-danger col-12">Logout</a>
+                <hr>
                 <table>
                     <thead>
                         <tr>
@@ -48,43 +50,6 @@
 
                     </tbody>
                 </table>
-                    
-
-                <div class="row">
-                    <div class="col-xs-8 mx-auto">
-                        <form action="?command=transaction" method="post" id="form1">
-                            <div class="h-10 p-5 mb-3">
-                                <label for="name">Name</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Name of transaction">
-                                <br>
-                                <label for="date">Date</label>
-                                <input type="date" class="form-control" id="date" name="date" placeholder="Date of transaction">
-                                <br>
-                                <label for="amount">Amount</label>
-                                <input type="number" class="form-control" id="amount" name="amount" placeholder="Transaction amount" min="0">
-                                <br>
-                                <label for="category">Category</label>
-                                <input type="text" class="form-control" id="category" name="category" placeholder="Transaction Category">
-                                <br>
-                                <label for="type">Type</label>
-                                <select class="form-control" id="type" name="type" placeholder="Transaction type">
-                                    <option value="volvo">Withdrawal</option>
-                                    <option value="saab">Deposit</option>
-                                </select>
-                            </div>
-                            <div class="text-center">
-                                <input type="hidden" name="userid" value="<?=$_SESSION["id"]?>">               
-                                <button type="submit" class="btn btn-primary">Add Transaction</button>
-                            </div>
-                        </form>
-
-
-
-
-
-
-                    </div>
-                </div>
             </div>
         </div>
 

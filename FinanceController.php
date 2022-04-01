@@ -26,35 +26,42 @@ class FinanceController {
             case "transaction":
                 $this->transaction();
                 break;
+            case "addtransaction":
+                $this->addTransaction();
+                break;
             case "logout":
-                $this->destroyCookies();
+                $this->destroySession();
             case "login":
             default:
                 $this->login();
         }
     }
 
-    private function destroyCookies() {
+    private function destroySession() {
         session_destroy();
         header("Location: ?command=login");
     }
 
     private function login() {
+        $error_msg = "";
         if (isset($_POST["email"])) {
             $data = $this->db->query("select * from hw5_user where email = ?;", "s", $_POST["email"]);
             if ($data === false) {
                 $error_msg = "Error checking for user";
             } else if (!empty($data)) {
-                if (password_verify($_POST["password"], $data[0]["password"])) {
+                if($data[0]["name"] === $_POST["name"]){
+                    if (password_verify($_POST["password"], $data[0]["password"])) {
                     $_SESSION["name"] = $data[0]["name"];
                     $_SESSION["email"] = $data[0]["email"];
                     $_SESSION["id"] = $data[0]["id"];
 
-                    
-
                     header("Location: ?command=transaction");
-                } else {
-                    $error_msg = "Wrong password";
+                    } else {
+                        $error_msg = "Wrong password";
+                    }
+                }
+                else{
+                    $error_msg = "Name doesn't correlate to email.";
                 }
             } else { // empty, no user found
                 // TODO: input validation
@@ -67,9 +74,10 @@ class FinanceController {
                 if ($insert === false) {
                     $error_msg = "Error inserting user";
                 } else {
+                    $data = $this->db->query("select id from hw5_user where email = ?;", "s", $_POST["email"]);
+                    $_SESSION["id"] = $data[0]["id"];
                     $_SESSION["name"] = $_POST["name"];
                     $_SESSION["email"] = $_POST["email"];
-                    #setcookie("id", 0, time() + 3600);
                     header("Location: ?command=transaction");
                 }
             }
@@ -86,6 +94,31 @@ class FinanceController {
 
         $transdata = $this->db->query("select * from hw5_transaction where user_id = ? ORDER BY t_date DESC;", "s", $_SESSION["id"]);
         $_SESSION["transactions"] = $transdata;
+        
         include("transaction.php");
+    }
+
+    private function addTransaction() {
+        $user = [
+            "name" => $_SESSION["name"],
+            "email" => $_SESSION["email"],
+            "id" => $_SESSION["id"]
+        ];
+        $success_msg = "";
+        $error_msg = "";
+
+        if(isset($_POST["name"])){
+            $insert = $this->db->query("insert into hw5_transaction (user_id, name, t_date, amount, Category, Type) values (?, ?, ?, ?, ?, ?);", 
+                        "issdss", $user["id"], $_POST["name"], $_POST["date"], $_POST["amount"], $_POST["category"], $_POST["type"]);
+            if ($insert === false) {
+                $error_msg = "Error adding transaction";
+            } else {
+                $success_msg = "Transaction added succesfully";
+                header("Location: ?command=addtransaction");
+            }
+        } else {
+            $error_msg = "Please enter a name";
+        }
+        include("addtransaction.php");
     }
 }
