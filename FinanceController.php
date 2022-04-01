@@ -104,23 +104,21 @@ class FinanceController {
             "email" => $_SESSION["email"],
             "id" => $_SESSION["id"]
         ];
-        $success_msg = "";
-        $error_msg = "";
 
-        if(isset($_POST["name"])){
+        $error_msg = "";
+        $success_msg = "";
+        if(isset($_POST["name"], $_POST["date"], $_POST["amount"], $_POST["category"], $_POST["type"])){
             if($_POST["type"] === "Debit"){
                 $_POST["amount"] = -$_POST["amount"];
             }
             $insert = $this->db->query("insert into hw5_transaction (user_id, name, t_date, amount, Category, Type) values (?, ?, ?, ?, ?, ?);", 
                         "issdss", $user["id"], $_POST["name"], $_POST["date"], $_POST["amount"], $_POST["category"], $_POST["type"]);
-            if ($insert === false) {
+            if (!$insert) {
                 $error_msg = "Error adding transaction";
             } else {
                 $success_msg = "Transaction added succesfully";
-                header("Location: ?command=addtransaction");
+                header("Location: ?command=transaction");
             }
-        } else {
-            $error_msg = "Please enter a name";
         }
         include("addtransaction.php");
     }
