@@ -108,6 +108,9 @@ class FinanceController {
         $error_msg = "";
 
         if(isset($_POST["name"])){
+            if($_POST["type"] === "Debit"){
+                $_POST["amount"] = -$_POST["amount"];
+            }
             $insert = $this->db->query("insert into hw5_transaction (user_id, name, t_date, amount, Category, Type) values (?, ?, ?, ?, ?, ?);", 
                         "issdss", $user["id"], $_POST["name"], $_POST["date"], $_POST["amount"], $_POST["category"], $_POST["type"]);
             if ($insert === false) {

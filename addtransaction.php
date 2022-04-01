@@ -36,8 +36,8 @@
                                 <br>
                                 <label for="type">Type</label>
                                 <select class="form-control" id="type" name="type" placeholder="Transaction type">
-                                    <option value="volvo">Withdrawal</option>
-                                    <option value="saab">Deposit</option>
+                                    <option value="Debit">Debit</option>
+                                    <option value="Credit">Credit</option>
                                 </select>
                             </div>
                             <div class="text-center">
